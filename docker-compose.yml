@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  authenticationapiservice:
+    container_name: authentication-api
+    image: ${DOCKER_REGISTRY-}authenticationapiservice
+    build:
+      context: .
+      dockerfile: AuthenticationApiService\Dockerfile
+
+  ocelotgateway:
+    container_name: api-gateway
+    image: ${DOCKER_REGISTRY-}ocelotgateway
+    build:
+      context: .
+      dockerfile: OcelotGateway\Dockerfile
+    ports:
+        - 8001:80
+

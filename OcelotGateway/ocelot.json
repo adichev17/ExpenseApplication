@@ -1,0 +1,68 @@
+{
+  "Routes": [
+    //{
+    //  "UpstreamPathTemplate": "/api/account/{everything}",
+    //  "UpstreamHttpMethod": [ "Get", "Post" ],
+
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "authenticationapiservice",
+    //      "Port": 80
+    //    }
+    //  ],
+    //  "DownstreamPathTemplate": "/api/account/{everything}",
+    //  "AuthenticationOptions": {
+    //    "AuthenticationProviderKey": "Bearer",
+    //    "AllowedScopes": []
+    //  },
+    //  "RateLimitOptions": {
+    //    "ClientWhitelist": [],
+    //    "EnableRateLimiting": true,
+    //    "Period": "15s",
+    //    "PeriodTimespan": 15,
+    //    "Limit": 2
+    //  }
+    //},
+    {
+      "UpstreamPathTemplate": "/api/account/Authenticate",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authenticationapiservice",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/account/Authenticate",
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "15s",
+        "PeriodTimespan": 15,
+        "Limit": 2
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/account/Test",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authenticationapiservice",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/account/Test",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:800"
+  }
+}

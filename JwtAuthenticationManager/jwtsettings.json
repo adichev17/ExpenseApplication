@@ -1,0 +1,6 @@
+{
+  "JwtSettings": {
+    "Secret": "super-secret-key",
+    "ExpiryMinutes": 40
+  }
+}
