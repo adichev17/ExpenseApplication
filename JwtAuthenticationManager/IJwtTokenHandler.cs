@@ -4,6 +4,6 @@ namespace JwtAuthenticationManager
 {
     public interface IJwtTokenHandler
     {
-        AuthenticationResponse? GenerateJwtToken(AuthenticationRequest authenticationRequest);
+        JwtTokenResponse? GenerateJwtToken(GenerateTokenRequest authenticationRequest);
     }
 }

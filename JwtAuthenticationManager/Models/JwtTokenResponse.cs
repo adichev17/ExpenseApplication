@@ -1,6 +1,6 @@
 ﻿namespace JwtAuthenticationManager.Models
 {
-    public class AuthenticationResponse
+    public class JwtTokenResponse
     {
         public string UserName { get; set; }
         public string JwtToken { get; set; }
