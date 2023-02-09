@@ -59,7 +59,7 @@ namespace AuthenticationApiService.Errors
             var traceId = Activity.Current?.Id ?? httpContext?.TraceIdentifier;
             if (traceId != null)
             {
-                problemDetails.Extensions["traceId"] = traceId;
+                problemDetails.Extensions[HttpContextItemKeys.TraceId] = traceId;
             }
 
             var error = httpContext?.Items[HttpContextItemKeys.Errors] as Error;
@@ -68,7 +68,7 @@ namespace AuthenticationApiService.Errors
 
             if (error.Metadata.Any())
             {
-                var errorMetadatas = error.Metadata.Select(x => new { x.Key = x.Value});
+                var errorMetadatas = error.Metadata.Select(x => new { item = x.Key, detail = x.Value});
                 problemDetails.Extensions.Add(HttpContextItemKeys.Errors, errorMetadatas);
             }
         }
