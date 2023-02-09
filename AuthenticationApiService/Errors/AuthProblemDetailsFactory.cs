@@ -18,9 +18,9 @@ namespace AuthenticationApiService.Errors
         }
 
         public override ProblemDetails CreateProblemDetails
-            (HttpContext httpContext, 
+            (HttpContext httpContext,
             int? statusCode = null,
-            string? title = null, 
+            string? title = null,
             string? type = null,
             string? detail = null,
             string? instance = null)
@@ -68,8 +68,9 @@ namespace AuthenticationApiService.Errors
 
             if (error.Metadata.Any())
             {
-                var errorMetadatas = error.Metadata.Select(x => new { item = x.Key, detail = x.Value});
-                problemDetails.Extensions.Add(HttpContextItemKeys.Errors, errorMetadatas);
+                problemDetails.Extensions.Add(
+                    HttpContextItemKeys.Errors,
+                    error.Metadata.Select(x => new { item = x.Key, detail = x.Value }));
             }
         }
 
