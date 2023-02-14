@@ -17,3 +17,11 @@ services:
     ports:
         - 8001:80
 
+
+  expensetracker.api:
+    container_name: expenseTracker-api
+    image: ${DOCKER_REGISTRY-}expensetrackerapi
+    build:
+      context: .
+      dockerfile: ExpenseTracker.API/Dockerfile
+
