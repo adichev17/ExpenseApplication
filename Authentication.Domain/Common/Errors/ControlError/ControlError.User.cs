@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 
-namespace AuthenticationApiService.Errors.ControlError
+namespace Authentication.Domain.Common.Errors.ControlError
 {
     public sealed class DublicateLoginError : Error
     {

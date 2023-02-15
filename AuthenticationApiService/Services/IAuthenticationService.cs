@@ -1,5 +1,4 @@
-﻿using AuthenticationApiService.Models.CommunicationModel;
-using FluentResults;
+﻿using FluentResults;
 using JwtAuthenticationManager.Models;
 
 namespace AuthenticationApiService.Services

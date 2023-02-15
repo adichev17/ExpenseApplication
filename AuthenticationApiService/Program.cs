@@ -1,3 +1,4 @@
+using Authentication.Infrastructure;
 using AuthenticationApiService.Errors;
 using AuthenticationApiService.Services;
 using JwtAuthenticationManager;
@@ -10,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<JwtTokenHandler>();
 builder.Services.AddSingleton<ProblemDetailsFactory, AuthProblemDetailsFactory>();
+//DI
+builder.Services.AddInfrastructure(builder.Configuration);
+
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddJwtAuthentication();
 builder.Services.AddJwtManagerDependency();

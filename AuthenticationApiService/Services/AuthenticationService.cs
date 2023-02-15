@@ -1,7 +1,5 @@
-﻿using AuthenticationApiService.Errors.ControlError;
-using AuthenticationApiService.Models.CommunicationModel;
+﻿using Authentication.Domain.Common.Errors.ControlError;
 using FluentResults;
-using JwtAuthenticationManager;
 using JwtAuthenticationManager.Models;
 
 namespace AuthenticationApiService.Services

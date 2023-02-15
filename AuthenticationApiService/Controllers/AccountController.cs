@@ -1,8 +1,7 @@
-﻿using AuthenticationApiService.Errors.ControlError;
+﻿using Authentication.Domain.Common.Errors.ControlError;
 using AuthenticationApiService.Models.CommunicationModel;
 using AuthenticationApiService.Services;
 using JwtAuthenticationManager;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthenticationApiService.Controllers
