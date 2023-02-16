@@ -17,5 +17,10 @@ namespace Authentication.Infrastructure.Repositories
                 return _users ??= new BaseRepository<UserEntity>(_dbContext);
             }
         }
+
+        public Task<int> CommitAsync()
+        {
+            return _dbContext.SaveChangesAsync();
+        }
     }
 }

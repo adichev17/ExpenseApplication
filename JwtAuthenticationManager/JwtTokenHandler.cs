@@ -21,16 +21,11 @@ namespace JwtAuthenticationManager
 
         public JwtTokenResponse? GenerateJwtToken(GenerateTokenRequest authenticationRequest)
         {
-            if (string.IsNullOrWhiteSpace(authenticationRequest.UserName) || string.IsNullOrEmpty(authenticationRequest.Password))
-            {
-                return null;
-            }         
-
             var tokenExpiryTimeStamp = _dateTimeProvider.Now.AddMinutes(_jwtSettings.ExpiryMinutes);
             var tokenKey = Encoding.UTF8.GetBytes(_jwtSettings.Secret);
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Name, authenticationRequest.UserName),
+                new Claim(JwtRegisteredClaimNames.Name, authenticationRequest.Login),
                 new Claim(JwtRegisteredClaimNames.Sub, authenticationRequest.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             });
@@ -52,7 +47,7 @@ namespace JwtAuthenticationManager
 
             return new JwtTokenResponse
             {
-                UserName = authenticationRequest.UserName,
+                UserName = authenticationRequest.Login,
                 ExpiresIn = (int)tokenExpiryTimeStamp.Subtract(_dateTimeProvider.Now).TotalSeconds,
                 JwtToken = token
             };
