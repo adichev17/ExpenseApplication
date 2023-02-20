@@ -16,7 +16,7 @@ namespace Authentication.Infrastructure
             services.AddDbContext<AuthenticationDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("AuthDatabase")));
             services.AddScoped<IAuthenticationDbContext>(provider => provider.GetService<AuthenticationDbContext>());
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             return services;
         }
     }
