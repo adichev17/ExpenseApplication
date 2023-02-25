@@ -1,6 +1,7 @@
-﻿using ExpenseTracker.Domain.Common.Errors.Controls;
+﻿using ExpenseTracker.Application.Common.Errors.Controls;
 using FluentResults;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 
 namespace ExpenseTracker.Application.Common.Behaviors
@@ -8,7 +9,6 @@ namespace ExpenseTracker.Application.Common.Behaviors
     public class ValidationBehavior<TRequest, TResponse> :
         IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
-        where TResponse : IEnumerable<IError>
     {
         private readonly IValidator<TRequest>? _validator;
 
@@ -33,9 +33,9 @@ namespace ExpenseTracker.Application.Common.Behaviors
 
             var errors = validationResult.Errors
                 .ConvertAll(validationFailure =>
-                    new ValidationError(validationFailure.PropertyName, validationFailure.ErrorMessage));
+                    new ValidationFailure(validationFailure.PropertyName, validationFailure.ErrorMessage));
 
-            return (dynamic)errors;
+            throw new ValidationException(errors);
         }
     }
 }

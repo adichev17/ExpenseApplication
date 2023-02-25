@@ -70,7 +70,7 @@ namespace ExpenseTracker.API.Common.ErrorHandler
             {
                 problemDetails.Extensions.Add(
                     HttpContextItemKeys.Errors,
-                    error.Metadata.Select(x => new { item = x.Key, detail = x.Value }));
+                    error.Metadata.Select(x => new { field = x.Key, detail = x.Value }));
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace ExpenseTracker.Application.Common.Dtos.Cards
 {
-    public class CreateCardDto
+    public class CardDto
     {
         public int UserId { get; set; }
         public decimal Balance { get; set; }

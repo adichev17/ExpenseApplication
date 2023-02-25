@@ -1,4 +1,6 @@
 using ExpenseTracker.API.Common.ErrorHandler;
+using ExpenseTracker.API.Common.Mapping;
+using ExpenseTracker.Application;
 using ExpenseTracker.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -13,6 +15,8 @@ builder.Services.AddSingleton<ProblemDetailsFactory, ExpenseTrackerProblemDetail
 
 //DI
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
+builder.Services.AddMappings();
 
 var app = builder.Build();
 

@@ -1,5 +1,5 @@
 ﻿using ExpenseTracker.API.Common.Http;
-using ExpenseTracker.Domain.Common.Errors.Controls;
+using ExpenseTracker.Application.Common.Errors.Controls;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -10,16 +10,11 @@ namespace ExpenseTracker.API.Controllers
     [ApiController]
     public class ApiController : ControllerBase
     {
-        protected IActionResult Problem(List<Error> errors, HttpStatusCode httpStatusCode)
+        protected IActionResult Problem(List<IError> errors, HttpStatusCode httpStatusCode)
         {
             if (errors.Count is 0)
             {
                 return Problem();
-            }
-
-            if (errors.All(x => x is ValidationError))
-            {
-                return ValidationProblem(errors);
             }
 
             var firstError = errors.First();
@@ -29,19 +24,10 @@ namespace ExpenseTracker.API.Controllers
             return Problem(statusCode: (int)httpStatusCode, title: firstError.Message);
         }
 
-        private IActionResult ValidationProblem(List<Error> errors)
+        // Not specifically using keyword - params.
+        protected IActionResult Problem(IError error, HttpStatusCode httpStatusCode)
         {
-            var modelStateDictionary = new ModelStateDictionary();
-
-            foreach (var error in errors)
-            {
-                foreach (var errorMetadata in error.Metadata)
-                {
-                    modelStateDictionary.AddModelError(errorMetadata.Key, errorMetadata.Value.ToString());
-                }
-            }
-
-            return ValidationProblem(modelStateDictionary);
+            return Problem(new List<IError> { error }, httpStatusCode);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 
-namespace ExpenseTracker.Domain.Common.Errors.Controls
+namespace ExpenseTracker.Application.Common.Errors.Controls
 {
     public sealed class ColorNotFoundError : Error
     {
