@@ -8,4 +8,12 @@ namespace ExpenseTracker.Application.Common.Errors.Controls
         {
         }
     }
+
+    public sealed class CardNotFoundError : Error
+    {
+        public CardNotFoundError(string message = "") : base (message)
+        {
+            WithMetadata("CardId", "Card with given ID not found");
+        }
+    }
 }

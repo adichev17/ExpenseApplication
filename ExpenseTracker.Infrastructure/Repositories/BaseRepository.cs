@@ -1,6 +1,7 @@
 ﻿using ExpenseTracker.Application.Common.Interfaces.Repositories;
 using ExpenseTracker.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System.Linq.Expressions;
 
 namespace ExpenseTracker.Infrastructure.Repositories
@@ -65,6 +66,11 @@ namespace ExpenseTracker.Infrastructure.Repositories
         public IEnumerable<TEntity> GetAll()
         {
             return dbSet.AsEnumerable();
+        }
+
+        public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            return await dbSet.FirstOrDefaultAsync(expression);
         }
     }
 }

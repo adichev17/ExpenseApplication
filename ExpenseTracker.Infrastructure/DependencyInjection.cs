@@ -17,6 +17,7 @@ namespace ExpenseTracker.Infrastructure
 
             services.AddScoped<IExpenseTrackerDBContext>(provider => provider.GetService<ExpenseTrackerDBContext>());
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             return services;
         }

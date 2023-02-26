@@ -9,6 +9,9 @@ namespace ExpenseTracker.Infrastructure.Repositories
         private BaseRepository<CardEntity> _cards;
         private BaseRepository<ColorEntity> _colors;
         private BaseRepository<UserEntity> _users;
+        private BaseRepository<ActionTypeEntity> _actions;
+        private BaseRepository<CategoryEntity> _categories;
+        private BaseRepository<UserCategoryEntity> _userCategories;
         private ExpenseTrackerDBContext _dbContext;
         public UnitOfWork(ExpenseTrackerDBContext dbContext) => _dbContext = dbContext;
 
@@ -35,6 +38,32 @@ namespace ExpenseTracker.Infrastructure.Repositories
                 return _users ??= new BaseRepository<UserEntity>(_dbContext);
             }
         }
+
+        public IRepository<ActionTypeEntity> ActionTypeRepository
+        {
+            get
+            {
+                return _actions ??= new BaseRepository<ActionTypeEntity>(_dbContext);
+            }
+        }
+
+        public IRepository<CategoryEntity> CategoryRepository
+        {
+            get
+            {
+                return _categories ??= new BaseRepository<CategoryEntity>(_dbContext);
+            }
+        }
+
+        public IRepository<UserCategoryEntity> UserCategoryRepository
+        {
+            get
+            {
+                return _userCategories ??= new BaseRepository<UserCategoryEntity>(_dbContext);
+            }
+        }
+
+        
 
         public Task<int> CommitAsync()
         {

@@ -52,7 +52,10 @@ namespace ExpenseTracker.API.Common.ErrorHandler
 
             if (_options.ClientErrorMapping.TryGetValue(statusCode, out var clientErrorData))
             {
-                problemDetails.Title ??= clientErrorData.Title;
+                if (string.IsNullOrEmpty(problemDetails.Title)) 
+                {
+                    problemDetails.Title = clientErrorData.Title;
+                }
                 problemDetails.Type ??= clientErrorData.Link;
             }
 
@@ -68,9 +71,14 @@ namespace ExpenseTracker.API.Common.ErrorHandler
 
             if (error.Metadata.Any())
             {
+                var errorDict = new Dictionary<string, object>();
+                foreach ( var item in error.Metadata )
+                {
+                    errorDict.Add(item.Key, new List<object> { item.Value });
+                }
                 problemDetails.Extensions.Add(
                     HttpContextItemKeys.Errors,
-                    error.Metadata.Select(x => new { field = x.Key, detail = x.Value }));
+                    errorDict);
             }
         }
 
