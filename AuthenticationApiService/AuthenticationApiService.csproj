@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentResults" Version="3.15.2" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1-pre02" />
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
@@ -23,6 +24,7 @@
     <ProjectReference Include="..\Authentication.Domain\Authentication.Domain.csproj" />
     <ProjectReference Include="..\Authentication.Infrastructure\Authentication.Infrastructure.csproj" />
     <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
+    <ProjectReference Include="..\MessageBus\MessageBus.csproj" />
   </ItemGroup>
 
 </Project>

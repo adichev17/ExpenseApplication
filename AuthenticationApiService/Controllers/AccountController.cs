@@ -1,10 +1,13 @@
 ﻿using Authentication.Application.Authentication.Commands.Register;
 using Authentication.Application.Authentication.Queries.Login;
 using Authentication.Domain.Common.Errors.ControlError;
+using AuthenticationApiService.Messages;
 using AuthenticationApiService.Models.CommunicationModel;
 using AuthenticationApiService.Services;
 using JwtAuthenticationManager;
+using MapsterMapper;
 using MediatR;
+using MessageBus.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -14,9 +17,16 @@ namespace AuthenticationApiService.Controllers
     public class AccountController : ApiController
     {
         private readonly IMediator _mediator;
-        public AccountController(IMediator mediator)
+        private readonly IMapper _mapper;
+        private readonly IMessageProducer _messageProducer;
+        public AccountController(
+            IMediator mediator,
+            IMapper mapper,
+            IMessageProducer messageProducer)
         {
             _mediator = mediator;
+            _mapper = mapper;
+            _messageProducer = messageProducer;
         }
 
         [HttpPost]
@@ -49,7 +59,10 @@ namespace AuthenticationApiService.Controllers
             var registerResult = await _mediator.Send(command);
             if (registerResult.IsSuccess)
             {
-                return Ok(registerResult.Value);
+                var createUserDto = _mapper.Map<CreateUserDto>(registerResult.Value);
+                _messageProducer.SendMessage(createUserDto, MessageBusConstants.ExchangeUsers, MessageBusConstants.KeyUserCreate);
+
+                return Ok();
             }
 
             var error = registerResult.Errors.FirstOrDefault();

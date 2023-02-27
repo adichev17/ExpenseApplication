@@ -27,11 +27,11 @@ namespace ExpenseTracker.Infrastructure.Repositories
                     
                     if (category.ActionTypeId == (int)ActionTypeEnum.Expense)
                     {
-                        card.Balance += transactionEntity.Amount;
+                        card.Balance -= transactionEntity.Amount;
                     }
                     else
                     {
-                        card.Balance -= transactionEntity.Amount;
+                        card.Balance += transactionEntity.Amount;
                     }
 
                     _context.SaveChanges();
