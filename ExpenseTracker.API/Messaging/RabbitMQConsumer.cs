@@ -1,6 +1,7 @@
 ﻿using ExpenseTracker.Application.Common.Interfaces.Repositories;
 using ExpenseTracker.Domain.Entities;
 using ExpenseTracker.Infrastructure.Persistence;
+using MessageBus.Common;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Diagnostics;
@@ -15,17 +16,19 @@ namespace ExpenseTracker.API.Messaging
         private readonly IModel _channel;
         private readonly IServiceScopeFactory _scopeFactory;
 
-        // To config file / Const
-        public readonly string Queue = "user.expenseservice";
-        public readonly string ExchangeName = "expense";
-
         public RabbitMQConsumer(IServiceScopeFactory scopeFactory)
         {
-            var factory = new ConnectionFactory { HostName = "localhost" };
+            var factory = new ConnectionFactory
+            {
+                HostName = "rabbitmq",
+                Port = 5672,
+                UserName = "guest",
+                Password = "guest"
+            };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(ExchangeName, ExchangeType.Fanout, durable: true);
-            _channel.QueueDeclare(queue: Queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.ExchangeDeclare(MessageBusConstants.ExchangeUsers, ExchangeType.Fanout, durable: true);
+            _channel.QueueDeclare(queue: MessageBusConstants.QueueUserRegister, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
             _scopeFactory = scopeFactory;
         }
@@ -66,7 +69,7 @@ namespace ExpenseTracker.API.Messaging
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            _channel.BasicConsume(Queue, false, consumer);
+            _channel.BasicConsume(MessageBusConstants.QueueUserRegister, false, consumer);
 
             return Task.CompletedTask;
         }

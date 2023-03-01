@@ -5,7 +5,7 @@
         //Exchanges
         public const string ExchangeUsers = "user";
 
-        //Keys
-        public const string KeyUserCreate = "user.create";
+        //Queue
+        public const string QueueUserRegister = "user.register";
     }
 }

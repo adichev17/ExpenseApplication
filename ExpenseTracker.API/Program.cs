@@ -1,5 +1,6 @@
 using ExpenseTracker.API.Common.ErrorHandler;
 using ExpenseTracker.API.Common.Mapping;
+using ExpenseTracker.API.Messaging;
 using ExpenseTracker.Application;
 using ExpenseTracker.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -17,6 +18,9 @@ builder.Services.AddSingleton<ProblemDetailsFactory, ExpenseTrackerProblemDetail
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddMappings();
+
+//BW
+builder.Services.AddHostedService<RabbitMQConsumer>();
 
 var app = builder.Build();
 

@@ -25,3 +25,25 @@ services:
       context: .
       dockerfile: ExpenseTracker.API/Dockerfile
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: "rabbitmq"
+    labels:
+        NAME: "rabbitmq"
+    command: rabbitmq-server
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    expose:
+     - 15672
+     - 5672
+
+  db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server2022
+    ports: # not actually needed, because the two services are on the same network.
+      - "1433:1433" 
+    environment:
+       ACCEPT_EULA: "Y"
+       SA_PASSWORD: "S3cur3P@ssW0rd!"
+
