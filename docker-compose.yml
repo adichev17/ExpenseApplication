@@ -47,3 +47,11 @@ services:
        ACCEPT_EULA: "Y"
        SA_PASSWORD: "S3cur3P@ssW0rd!"
 
+
+  fnsapi:
+    container_name: fns-api
+    image: ${DOCKER_REGISTRY-}fnsapi
+    build:
+      context: .
+      dockerfile: FNSApi/Dockerfile
+
