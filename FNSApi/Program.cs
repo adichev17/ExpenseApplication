@@ -1,5 +1,6 @@
 using FNSApi.Common;
 using FNSApi.Common.Mapping;
+using FNSApi.Messaging;
 using FNSApi.Services;
 using FNSApi.Services.IServices;
 
@@ -23,6 +24,8 @@ builder.Services.AddHttpClient<IFnsHttpService, FnsHttpService>(client =>
 
 builder.Services.AddMappings();
 builder.Services.AddMemoryCache();
+
+builder.Services.AddHostedService<RabbitMQPhoneConsumer>();
 
 var app = builder.Build();
 
