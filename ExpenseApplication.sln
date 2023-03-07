@@ -39,7 +39,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBus", "MessageBus\Me
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FNS", "FNS", "{BBE3D45D-7C25-444F-95CC-1D600F799292}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNSApi", "FNSApi\FNSApi.csproj", "{4618FDA6-FBDD-447F-95B4-EE1A78FC9B2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FNSApi", "FNSApi\FNSApi.csproj", "{4618FDA6-FBDD-447F-95B4-EE1A78FC9B2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2052C39A-5896-4DC3-9A3E-5E5A023A38DB}"
+	ProjectSection(SolutionItems) = preProject
+		project-development.txt = project-development.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

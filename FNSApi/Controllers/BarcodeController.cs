@@ -54,7 +54,7 @@ namespace FNSApi.Controllers
                 var barcodeResponseDto = 
                     new BarcodeResponseDto(
                         ticket.Ticket.Document.Receipt.Products.First().ProductTypeId, 
-                        ticket.Operation.Amount,
+                        ticket.Operation.Amount / 100, // Converting to the ruble from kopecks
                         ticket.Ticket.Document.Receipt.PlaceName);
 
                 return Ok(barcodeResponseDto);
