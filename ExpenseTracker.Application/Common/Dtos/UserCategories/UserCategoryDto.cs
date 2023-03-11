@@ -2,6 +2,7 @@
 {
     public class UserCategoryDto
     {
+        public int Id { get; set; }
         public string CategoryName { get; set; }
         public int ActionTypeId { get; set; }
     }
