@@ -9,6 +9,7 @@ namespace ExpenseTracker.Application.Common.Dtos.Cards
         [JsonPropertyName("name")]
         public string CardName { get; set; }
         public int ColorId { get; set; }
-        public DateTime CreatedDate { get; set; }
+        [JsonPropertyName("created")]
+        public DateTime CreatedOnUtc { get; set; }
     }
 }

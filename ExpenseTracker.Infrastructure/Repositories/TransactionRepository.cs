@@ -60,5 +60,14 @@ namespace ExpenseTracker.Infrastructure.Repositories
             transactions = transactions.OrderByDescending(x => x.Id).Take(rows);
             return transactions;
         }
+
+        public async Task<TransactionEntity> GetByIdAsync(int transactionId)
+        {
+            var transaction = await _context.Transactions
+                .Include(x=> x.Card)
+                .Include(x => x.Category)
+                .FirstOrDefaultAsync(x => x.Id == transactionId);
+            return transaction;
+        }
     }
 }

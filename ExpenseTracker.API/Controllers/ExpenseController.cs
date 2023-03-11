@@ -1,6 +1,7 @@
 ﻿using ExpenseTracker.API.Models.Communications.Expense;
 using ExpenseTracker.Application.Common.Errors.Controls;
 using ExpenseTracker.Application.Expenses.Commands.CreateExpense;
+using ExpenseTracker.Application.Expenses.Queries.GetTransaction;
 using ExpenseTracker.Application.Expenses.Queries.ListTransactions;
 using FluentResults;
 using MapsterMapper;
@@ -52,6 +53,21 @@ namespace ExpenseTracker.API.Controllers
             return ValidateControlError(error);
         }
 
+        [HttpGet("{transactionId:int}")]
+        public async Task<IActionResult> GetTransactionById(int transactionId)
+        {
+            var query = new GetTransactionQuery(transactionId);
+            var queryResult = await _mediator.Send(query);
+            if (queryResult.IsSuccess)
+            {
+                return Ok(queryResult.Value);
+            }
+
+            var error = queryResult.Errors.FirstOrDefault();
+
+            return ValidateControlError(error);
+        }
+
         private IActionResult ValidateControlError(IError error)
         {
             return error switch
@@ -59,6 +75,7 @@ namespace ExpenseTracker.API.Controllers
                 CardNotFoundError => Problem(error, HttpStatusCode.NotFound),
                 CategoryNotFoundError => Problem(error, HttpStatusCode.NotFound),
                 NotFoundUserCategoryError => Problem(error, HttpStatusCode.Conflict),
+                NotFoundTransactionError => Problem(error, HttpStatusCode.NotFound),
                 _ => Problem(),
             };
         }

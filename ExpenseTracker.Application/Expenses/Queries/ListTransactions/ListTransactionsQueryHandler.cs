@@ -1,8 +1,8 @@
 ﻿using ExpenseTracker.Application.Common.Dtos.Cards;
-using ExpenseTracker.Application.Common.Dtos.Categories;
 using ExpenseTracker.Application.Common.Dtos.Expenses;
 using ExpenseTracker.Application.Common.Interfaces.Repositories;
 using FluentResults;
+using MapsterMapper;
 using MediatR;
 
 namespace ExpenseTracker.Application.Expenses.Queries.ListTransactions
@@ -10,10 +10,13 @@ namespace ExpenseTracker.Application.Expenses.Queries.ListTransactions
     public class ListTransactionsQueryHandler : IRequestHandler<ListTransactionsQuery, Result<List<CardTransactionsDto>>>
     {
         private readonly ITransactionRepository _transactionRepository;
+        private readonly IMapper _mapper;
         public ListTransactionsQueryHandler(
-            ITransactionRepository transactionRepository)
+            ITransactionRepository transactionRepository,
+            IMapper mapper)
         {
             _transactionRepository = transactionRepository;
+            _mapper = mapper;
         }
 
         //TODO: to mapster
@@ -24,33 +27,13 @@ namespace ExpenseTracker.Application.Expenses.Queries.ListTransactions
             foreach (var card in transactions.Select(x => x.Card).Distinct())
             {
                 var cardTransactions = transactions.Where(x => x.CardId == card.Id);
-                var cardTransactionsDto = new List<TransactionDto>();
-                foreach (var cardTransaction in cardTransactions)
-                {
-                    cardTransactionsDto.Add(new TransactionDto
-                    {
-                        Id = cardTransaction.Id,
-                        Date = cardTransaction.Date,
-                        Amount = cardTransaction.Amount,
-                        Category = new CategoryDto
-                        {
-                            Id = cardTransaction.Category.Id,
-                            CategoryName = cardTransaction.Category.CategoryName,
-                            ImageUri = cardTransaction.Category.ImageUri,
-                            ActionTypeId = cardTransaction.Category.ActionTypeId
-                        }
-                    });
-                }
+                var cardTransactionsDto = new List<TransactionWithoutCardDto>();
+
+                cardTransactionsDto.AddRange(cardTransactions.Select(_mapper.Map<TransactionWithoutCardDto>));
 
                 transactionsDto.Add(new CardTransactionsDto
                 {
-                    Card = new CardDto()
-                    {
-                        Id = card.Id,
-                        Balance = card.Balance,
-                        CardName = card.CardName,
-                        ColorId = card.ColorId,
-                    },
+                    Card = _mapper.Map<CardDto>(card),
                     Transactions = cardTransactionsDto
                 });
             }

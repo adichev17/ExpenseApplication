@@ -9,4 +9,12 @@ namespace ExpenseTracker.Application.Common.Errors.Controls
 
         }
     }
+
+    public sealed class NotFoundTransactionError : Error
+    {
+        public NotFoundTransactionError(string message = "Transaction not found") : base(message)
+        {
+
+        }
+    }
 }
