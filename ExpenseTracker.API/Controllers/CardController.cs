@@ -2,6 +2,8 @@
 using ExpenseTracker.Application.Cards.Commands.CreateCard;
 using ExpenseTracker.Application.Cards.Commands.DeleteCard;
 using ExpenseTracker.Application.Cards.Commands.EditCard;
+using ExpenseTracker.Application.Cards.Queries.GetCard;
+using ExpenseTracker.Application.Cards.Queries.ListCards;
 using ExpenseTracker.Application.Common.Errors.Controls;
 using FluentResults;
 using MapsterMapper;
@@ -64,6 +66,35 @@ namespace ExpenseTracker.API.Controllers
 
             var error = commandResult.Errors.FirstOrDefault();
 
+            return ValidateControlError(error);
+        }
+
+        [HttpGet]
+        [Route("{userId:int}")]
+        public async Task<IActionResult> GetCards(int userId)
+        {
+            var query = new ListCardsQuery(userId);
+            var queryResult = await _mediator.Send(query);
+            if (queryResult.IsSuccess)
+            {
+                return Ok(queryResult.Value);
+            }
+            
+            var error = queryResult.Errors.FirstOrDefault();
+            return ValidateControlError(error);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCard(int userId, int cardId)
+        {
+            var query = new GetCardQuery(userId, cardId);
+            var queryResult = await _mediator.Send(query);
+            if (queryResult.IsSuccess)
+            {
+                return Ok(queryResult.Value);
+            }
+
+            var error = queryResult.Errors.FirstOrDefault();
             return ValidateControlError(error);
         }
 

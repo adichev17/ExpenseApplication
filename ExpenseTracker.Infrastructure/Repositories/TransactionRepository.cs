@@ -2,6 +2,7 @@
 using ExpenseTracker.Domain.Entities;
 using ExpenseTracker.Domain.Enums;
 using ExpenseTracker.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.Infrastructure.Repositories
 {
@@ -15,34 +16,49 @@ namespace ExpenseTracker.Infrastructure.Repositories
 
         public void AddTransaction(TransactionEntity transactionEntity)
         {
-            using (var transaction = _context.Database.BeginTransaction())
+            using var transaction = _context.Database.BeginTransaction();
+            try
             {
-                try
-                {
-                    var card = _context.Cards.FirstOrDefault(x => x.Id == transactionEntity.CardId);
-                    var category = _context.Categories.FirstOrDefault(x => x.Id == transactionEntity.CategoryId);
+                var card = _context.Cards.FirstOrDefault(x => x.Id == transactionEntity.CardId);
+                var category = _context.Categories.FirstOrDefault(x => x.Id == transactionEntity.CategoryId);
 
-                    _context.Transactions.Add(transactionEntity);
-                    _context.SaveChanges();
-                    
-                    if (category.ActionTypeId == (int)ActionTypeEnum.Expense)
-                    {
-                        card.Balance -= transactionEntity.Amount;
-                    }
-                    else
-                    {
-                        card.Balance += transactionEntity.Amount;
-                    }
+                _context.Transactions.Add(transactionEntity);
+                _context.SaveChanges();
 
-                    _context.SaveChanges();
-                    transaction.Commit();
-                }
-                catch (Exception)
+                if (category.ActionTypeId == (int)ActionTypeEnum.Expense)
                 {
-                    transaction.Rollback();
-                    throw;
+                    card.Balance -= transactionEntity.Amount;
                 }
+                else
+                {
+                    card.Balance += transactionEntity.Amount;
+                }
+
+                _context.SaveChanges();
+                transaction.Commit();
             }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
+
+        public IQueryable<TransactionEntity> GetAll(int userId, int cardId = 0, int rows = 100)
+        {
+            var cardIds = _context.Cards.Where(x => x.UserId == userId).Select(x => x.Id);
+            var transactions = _context.Transactions
+                .Include(x => x.Card)
+                .Include(x => x.Category)
+                .Where(x => x.Card.UserId == userId);
+
+            if (cardId is not 0)
+            {
+                transactions = transactions.Where(x => x.CardId == cardId);
+            }
+
+            transactions = transactions.OrderByDescending(x => x.Id).Take(rows);
+            return transactions;
         }
     }
 }

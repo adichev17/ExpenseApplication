@@ -22,7 +22,7 @@ namespace ExpenseTracker.Domain.Entities
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        public CategoryEntity Category { get; set; }
+        public virtual CategoryEntity Category { get; set; }
 
         [Required]
         public DateTime Date { get; set; }

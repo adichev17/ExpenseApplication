@@ -1,6 +1,20 @@
 version: '3.4'
 
 services:
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: "rabbitmq"
+    labels:
+        NAME: "rabbitmq"
+    command: rabbitmq-server
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    expose:
+     - 15672
+     - 5672
+
   authenticationapiservice:
     container_name: authentication-api
     image: ${DOCKER_REGISTRY-}authenticationapiservice
@@ -17,26 +31,12 @@ services:
     ports:
         - 8001:80
 
-
   expensetracker.api:
     container_name: expenseTracker-api
     image: ${DOCKER_REGISTRY-}expensetrackerapi
     build:
       context: .
       dockerfile: ExpenseTracker.API/Dockerfile
-
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    hostname: "rabbitmq"
-    labels:
-        NAME: "rabbitmq"
-    command: rabbitmq-server
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    expose:
-     - 15672
-     - 5672
 
   db:
     image: "mcr.microsoft.com/mssql/server:2022-latest"

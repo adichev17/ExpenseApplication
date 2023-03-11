@@ -45,13 +45,20 @@ namespace ExpenseTracker.API.Messaging
                 var message = JsonSerializer.Deserialize<UserEntity>(content);
                 if (message is null) throw new ArgumentNullException();
 
+                var userEntity = new UserEntity
+                {
+                    Login = message.Login,
+                    Password = message.Password,
+                    CreatedOnUtc = message.CreatedOnUtc,
+                };
+
                 using (var scope = _scopeFactory.CreateScope())
                 {
                     var dbContext = scope.ServiceProvider.GetRequiredService<ExpenseTrackerDBContext>();
                     using var transaction = dbContext.Database.BeginTransaction();
                     try
                     {                  
-                        dbContext.Add(message);
+                        dbContext.Add(userEntity);
                         dbContext.SaveChanges();
                         transaction.Commit();
                     }                 
