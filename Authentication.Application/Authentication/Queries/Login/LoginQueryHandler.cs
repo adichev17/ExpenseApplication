@@ -21,15 +21,24 @@ namespace Authentication.Application.Authentication.Queries.Login
 
         public async Task<Result<JwtTokenResponse>> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
-            var tdt = _unitOfWork.UserRepository.GetAll().ToList();
             if ((await _unitOfWork.UserRepository.FindAsync(x => x.Login == request.Login))?.FirstOrDefault() is not UserEntity user) {
                 return Result.Fail<JwtTokenResponse>(new InvalidCredentialsError());
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            try
             {
-                return Result.Fail<JwtTokenResponse>(new InvalidCredentialsError());
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+                if (!BCrypt.Net.BCrypt.Verify(request.Password, passwordHash))
+                {
+                    return Result.Fail<JwtTokenResponse>(new InvalidCredentialsError());
+                }
             }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
 
             var tokenRequest = new GenerateTokenRequest(user.Id, user.Login, user.Password);
             var token = _jwtTokenHandler.GenerateJwtToken(tokenRequest);

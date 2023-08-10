@@ -1,31 +1,7 @@
 {
   "Routes": [
-    {
-      "UpstreamPathTemplate": "/api/account/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "authenticationapiservice",
-          "Port": 80
-        }
-      ],
-      "DownstreamPathTemplate": "/api/account/{everything}",
-      //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer",
-      //  "AllowedScopes": []
-      //},
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "15s",
-        "PeriodTimespan": 15,
-        "Limit": 2
-      }
-    }
     //{
-    //  "UpstreamPathTemplate": "/api/account/Authenticate",
+    //  "UpstreamPathTemplate": "/api/account/{everything}",
     //  "UpstreamHttpMethod": [ "Get", "Post" ],
 
     //  "DownstreamScheme": "http",
@@ -35,7 +11,11 @@
     //      "Port": 80
     //    }
     //  ],
-    //  "DownstreamPathTemplate": "/api/account/Authenticate",
+    //  "DownstreamPathTemplate": "/api/account/{everything}",
+    //  //"AuthenticationOptions": {
+    //  //  "AuthenticationProviderKey": "Bearer",
+    //  //  "AllowedScopes": []
+    //  //},
     //  "RateLimitOptions": {
     //    "ClientWhitelist": [],
     //    "EnableRateLimiting": true,
@@ -44,23 +24,76 @@
     //    "Limit": 2
     //  }
     //},
-    //{
-    //  "UpstreamPathTemplate": "/api/account/Test",
-    //  "UpstreamHttpMethod": [ "Get" ],
 
-    //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "authenticationapiservice",
-    //      "Port": 80
-    //    }
-    //  ],
-    //  "DownstreamPathTemplate": "/api/account/Test",
-    //  "AuthenticationOptions": {
-    //    "AuthenticationProviderKey": "Bearer",
-    //    "AllowedScopes": []
-    //  }
-    //}
+    //account endpoints 
+    {
+      "UpstreamPathTemplate": "/api/account/register",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authenticationapiservice",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/account/Register",
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "15s",
+        "PeriodTimespan": 15,
+        "Limit": 2
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/account/Authenticate",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authenticationapiservice",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/account/Authenticate",
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "15s",
+        "PeriodTimespan": 15,
+        "Limit": 2
+      }
+    },
+
+    //card endpoints
+    {
+      "UpstreamPathTemplate": "/api/card/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      //"AddClaimsToRequest": {
+      //  "UserId": "Claims[UserId] > value > |"
+      //},
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "expensetracker.api",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/card/{everything}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 15,
+        "Limit": 2
+      }
+    }
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:800"

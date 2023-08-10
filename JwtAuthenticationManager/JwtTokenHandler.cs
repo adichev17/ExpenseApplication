@@ -26,8 +26,8 @@ namespace JwtAuthenticationManager
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Name, authenticationRequest.Login),
-                new Claim(JwtRegisteredClaimNames.Sub, authenticationRequest.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("UserId", authenticationRequest.Id.ToString())
             });
 
             var signingCredentials = new SigningCredentials(

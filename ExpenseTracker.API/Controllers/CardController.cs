@@ -8,12 +8,14 @@ using ExpenseTracker.Application.Common.Errors.Controls;
 using FluentResults;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace ExpenseTracker.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/[controller]/[action]")]
     public class CardController : ApiController
     {
         private readonly IMapper _mapper;
@@ -27,6 +29,7 @@ namespace ExpenseTracker.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCardRequest request)
         {
+            var a = this.User.Claims.ToList();
             var command = _mapper.Map<CreateCardCommand>(request);
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsSuccess)

@@ -3,6 +3,7 @@ using ExpenseTracker.API.Common.Mapping;
 using ExpenseTracker.API.Messaging;
 using ExpenseTracker.Application;
 using ExpenseTracker.Infrastructure;
+using JwtAuthenticationManager;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddSingleton<ProblemDetailsFactory, ExpenseTrackerProblemDetailsFactory>();
+
+builder.Services.AddJwtAuthentication();
 
 //DI
 builder.Services.AddInfrastructure(builder.Configuration);

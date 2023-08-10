@@ -3,6 +3,7 @@ using ExpenseTracker.Application.Common.Interfaces.Services;
 using ExpenseTracker.Infrastructure.Persistence;
 using ExpenseTracker.Infrastructure.Repositories;
 using ExpenseTracker.Infrastructure.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,8 +15,8 @@ namespace ExpenseTracker.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ExpenseTrackerDBContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("ExpenseTrackerDatabase")));
-
             services.AddScoped<IExpenseTrackerDBContext>(provider => provider.GetService<ExpenseTrackerDBContext>());
+            services.AddScoped<IUserProvider,  UserProvider>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
