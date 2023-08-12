@@ -70,7 +70,7 @@
     //card endpoints
     {
       "UpstreamPathTemplate": "/api/card/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
       //"AddClaimsToRequest": {
       //  "UserId": "Claims[UserId] > value > |"
       //},
@@ -92,6 +92,56 @@
         "Period": "10s",
         "PeriodTimespan": 15,
         "Limit": 2
+      }
+    },
+
+    //expense endpoints
+    {
+      "UpstreamPathTemplate": "/api/expense/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "expensetracker.api",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/expense/{everything}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 2,
+        "Limit": 3
+      }
+    },
+
+    //user categories endpoints
+    {
+      "UpstreamPathTemplate": "/api/user/category",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "expensetracker.api",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/user/category",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 2,
+        "Limit": 3
       }
     }
   ],

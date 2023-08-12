@@ -14,6 +14,7 @@ namespace ExpenseTracker.Application.Cards.Commands.EditCard
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IMapper _mapper;
+
         public EditCardCommandHandler(
             IUnitOfWork unitOfWork,
             IDateTimeProvider dateTimeProvider,

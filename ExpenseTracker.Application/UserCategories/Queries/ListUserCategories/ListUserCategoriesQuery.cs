@@ -6,6 +6,6 @@ using MediatR;
 namespace ExpenseTracker.Application.UserCategories.Queries.ListUserCategories
 {
     public record ListUserCategoriesQuery(
-        int UserId, 
+        Guid UserId, 
         int ActionTypeId) : IRequest<Result<List<CategoryDto>>>;
 }

@@ -60,7 +60,7 @@ namespace AuthenticationApiService.Controllers
             if (registerResult.IsSuccess)
             {
                 var createUserDto = _mapper.Map<CreateUserDto>(registerResult.Value);
-                _messageProducer.SendMessage(createUserDto, MessageBusConstants.ExchangeUsers, MessageBusConstants.QueueUserRegister);
+                _messageProducer.SendMessage(createUserDto, MessageBusConstants.ExchangeUsers, MessageBusConstants.UserRegisterKey);
 
                 return Ok();
             }

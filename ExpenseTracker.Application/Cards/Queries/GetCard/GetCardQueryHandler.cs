@@ -12,6 +12,7 @@ namespace ExpenseTracker.Application.Cards.Queries.GetCard
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
         public GetCardQueryHandler(
             IUnitOfWork unitOfWork,
             IMapper mapper)

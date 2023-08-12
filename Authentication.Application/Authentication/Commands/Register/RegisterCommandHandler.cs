@@ -38,6 +38,7 @@ namespace Authentication.Application.Authentication.Commands.Register
 
             var user = new UserEntity
             {
+                Id = Guid.NewGuid(),
                 Login = request.Login,
                 Password = passwordHash,
                 CreatedOnUtc = _dateTimeProvider.UtcNow

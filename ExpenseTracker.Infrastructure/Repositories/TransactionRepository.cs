@@ -44,7 +44,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
             }
         }
 
-        public IQueryable<TransactionEntity> GetAll(int userId, int cardId = 0, int rows = 100)
+        public IQueryable<TransactionEntity> GetAll(Guid userId, int cardId = 0, int rows = 100)
         {
             var cardIds = _context.Cards.Where(x => x.UserId == userId).Select(x => x.Id);
             var transactions = _context.Transactions

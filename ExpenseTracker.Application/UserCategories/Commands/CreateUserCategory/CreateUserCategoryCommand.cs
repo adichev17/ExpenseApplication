@@ -5,7 +5,7 @@ using MediatR;
 namespace ExpenseTracker.Application.UserCategories.Commands.CreateUserCategory
 {
     public record CreateUserCategoryCommand(
-        int UserId,
+        Guid UserId,
         string CategoryName,
         int ActionTypeId) : IRequest<Result<UserCategoryDto>>;
 }

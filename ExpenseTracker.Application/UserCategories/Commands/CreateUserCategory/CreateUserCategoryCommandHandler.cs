@@ -61,7 +61,7 @@ namespace ExpenseTracker.Application.UserCategories.Commands.CreateUserCategory
             return _mapper.Map<UserCategoryDto>(category);
         }
 
-        private void AddUserCategory(int userId, CategoryEntity category)
+        private void AddUserCategory(Guid userId, CategoryEntity category)
         {
             var userCategoryEntity = new UserCategoryEntity
             {

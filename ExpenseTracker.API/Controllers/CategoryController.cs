@@ -4,11 +4,14 @@ using ExpenseTracker.Application.Common.Errors.Controls;
 using FluentResults;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace ExpenseTracker.API.Controllers
 {
+
+    [Authorize]
     [Route("api/admin/[controller]")]
     public class CategoryController : ApiController
     {

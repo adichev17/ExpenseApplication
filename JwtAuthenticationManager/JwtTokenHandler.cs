@@ -27,7 +27,7 @@ namespace JwtAuthenticationManager
             {
                 new Claim(JwtRegisteredClaimNames.Name, authenticationRequest.Login),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("UserId", authenticationRequest.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, authenticationRequest.Id.ToString())
             });
 
             var signingCredentials = new SigningCredentials(

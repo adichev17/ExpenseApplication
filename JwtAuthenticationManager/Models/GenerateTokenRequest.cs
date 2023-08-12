@@ -1,7 +1,7 @@
 ﻿namespace JwtAuthenticationManager.Models
 {
     public record GenerateTokenRequest (
-        int Id,
+        Guid Id,
         string Login,
         string Password);
 }

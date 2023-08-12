@@ -2,6 +2,6 @@
 {
     public interface IUserProvider
     {
-        int GetUserId();
+        Guid GetUserId();
     }
 }

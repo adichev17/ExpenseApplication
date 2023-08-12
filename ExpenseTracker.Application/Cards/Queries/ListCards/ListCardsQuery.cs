@@ -5,5 +5,5 @@ using MediatR;
 namespace ExpenseTracker.Application.Cards.Queries.ListCards
 {
     public record ListCardsQuery(
-        int UserId) : IRequest<Result<List<CardDto>>>;
+        Guid UserId) : IRequest<Result<List<CardDto>>>;
 }

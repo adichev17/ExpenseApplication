@@ -14,7 +14,6 @@ namespace ExpenseTracker.Application.Cards.Commands.CreateCard
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IMapper _mapper;
-        private readonly IUserProvider _userProvider;
         public CreateCardCommandHandler(IUnitOfWork unitOfWork, 
             IDateTimeProvider dateTimeProvider, 
             IMapper mapper,
@@ -23,14 +22,11 @@ namespace ExpenseTracker.Application.Cards.Commands.CreateCard
             _unitOfWork = unitOfWork;
             _dateTimeProvider = dateTimeProvider;
             _mapper = mapper;
-            _userProvider = userProvider;
         }
 
         public async Task<Result<CardDto>> Handle(CreateCardCommand request, CancellationToken cancellationToken)
         {
-            var userId = _userProvider.GetUserId();
-
-            if ((await _unitOfWork.UserRepository.GetByIdAsync(userId)) is null)
+            if ((await _unitOfWork.UserRepository.GetByIdAsync(request.UserId)) is null)
             {
                 return Result.Fail(new UserNotFoundError());
             }
@@ -40,7 +36,7 @@ namespace ExpenseTracker.Application.Cards.Commands.CreateCard
                 return Result.Fail(new ColorNotFoundError());
             }
             if ((await _unitOfWork.CardRepository
-                .FindAsync(x => x.UserId == userId && x.CardName == request.CardName))
+                .FindAsync(x => x.UserId == request.UserId && x.CardName == request.CardName))
                 .FirstOrDefault() is not null)
             {
                 return Result.Fail(new DuplicateCardError());
@@ -49,7 +45,7 @@ namespace ExpenseTracker.Application.Cards.Commands.CreateCard
             var cardEntity = new CardEntity
             {
                 CardName = request.CardName,
-                UserId = userId,
+                UserId = request.UserId,
                 ColorId = request.ColorId,
                 Balance = 0,
                 CreatedOnUtc = _dateTimeProvider.Now

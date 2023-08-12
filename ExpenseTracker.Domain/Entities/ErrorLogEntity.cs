@@ -7,7 +7,7 @@ namespace ExpenseTracker.Domain.Entities
     public class ErrorLogEntity : BaseEntity<int>
     {
         [Required]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public virtual UserEntity User { get; set; }

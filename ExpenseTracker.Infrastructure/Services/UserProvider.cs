@@ -11,10 +11,16 @@ namespace ExpenseTracker.Infrastructure.Services
         {
             _httpContext = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
-        public int GetUserId()
+
+        public Guid GetUserId()
         {
-            var rs = _httpContext.HttpContext.User.Claims.ToList();
-            return int.Parse(_httpContext.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            var userId = _httpContext?.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new InvalidOperationException(nameof(userId));
+            }
+
+            return Guid.Parse(userId);
         }
     }
 }

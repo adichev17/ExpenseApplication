@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Authentication.Domain.Entities
 {
     [Table("User")]
-    public class UserEntity : BaseEntity<int>
+    public class UserEntity : BaseEntity<Guid>
     {
         [Required]
         [MaxLength(50)]

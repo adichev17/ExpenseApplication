@@ -9,5 +9,8 @@
         //Queue
         public const string QueueUserRegister = "user.register";
         public const string QueueFnsPhone = "phone.code";
+
+        //RouteKeys
+        public const string UserRegisterKey = "user.register-key";
     }
 }

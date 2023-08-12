@@ -1,25 +1,33 @@
 ﻿using ExpenseTracker.API.Models.Communications.Expense;
 using ExpenseTracker.Application.Common.Errors.Controls;
+using ExpenseTracker.Application.Common.Interfaces.Services;
 using ExpenseTracker.Application.Expenses.Commands.CreateExpense;
 using ExpenseTracker.Application.Expenses.Queries.GetTransaction;
 using ExpenseTracker.Application.Expenses.Queries.ListTransactions;
 using FluentResults;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace ExpenseTracker.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ExpenseController : ApiController
     {
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
-        public ExpenseController(IMapper mapper, IMediator mediator)
+        private readonly IUserProvider _userProvider;
+        public ExpenseController(
+            IMapper mapper, 
+            IMediator mediator,
+            IUserProvider userProvider)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _userProvider = userProvider;
         }
 
         [HttpPost]
@@ -38,9 +46,9 @@ namespace ExpenseTracker.API.Controllers
         }
 
         [HttpGet]
-        //TODO: To model parameters
-        public async Task<IActionResult> GetAllTransactions(int userId, int cardId = 0, int rows = 100)
+        public async Task<IActionResult> GetAllTransactions(int cardId = 0, int rows = 100)
         {
+            var userId = _userProvider.GetUserId();
             var query = new ListTransactionsQuery(userId, rows, cardId);
             var queryResult = await _mediator.Send(query);
             if (queryResult.IsSuccess)

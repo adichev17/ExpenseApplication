@@ -40,12 +40,12 @@ namespace FNSApi.Messaging
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (ch, ea) =>
             {
-                var message = Encoding.UTF8.GetString(ea.Body.ToArray());
-                if (message is null) throw new ArgumentNullException();
-
+                var message = Encoding.UTF8.GetString(ea.Body.ToArray()) ?? throw new ArgumentNullException();
                 _memoryCache.Set(CacheItemKeys.PhoneCode, message);
                 // Обрабатываем полученное сообщение
+                #if DEBUG
                 Debug.WriteLine($"Получено сообщение: {message}");
+                #endif
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 

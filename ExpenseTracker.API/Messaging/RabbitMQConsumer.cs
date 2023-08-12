@@ -1,5 +1,4 @@
-﻿using ExpenseTracker.Application.Common.Interfaces.Repositories;
-using ExpenseTracker.Domain.Entities;
+﻿using ExpenseTracker.Domain.Entities;
 using ExpenseTracker.Infrastructure.Persistence;
 using MessageBus.Common;
 using RabbitMQ.Client;
@@ -27,8 +26,9 @@ namespace ExpenseTracker.API.Messaging
             };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(MessageBusConstants.ExchangeUsers, ExchangeType.Fanout, durable: true);
+            _channel.ExchangeDeclare(MessageBusConstants.ExchangeUsers, ExchangeType.Direct, durable: true);
             _channel.QueueDeclare(queue: MessageBusConstants.QueueUserRegister, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueBind(MessageBusConstants.QueueUserRegister, MessageBusConstants.ExchangeUsers, MessageBusConstants.UserRegisterKey);
 
             _scopeFactory = scopeFactory;
         }
@@ -41,12 +41,10 @@ namespace ExpenseTracker.API.Messaging
             consumer.Received += (ch, ea) =>
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-
-                var message = JsonSerializer.Deserialize<UserEntity>(content);
-                if (message is null) throw new ArgumentNullException();
-
+                var message = JsonSerializer.Deserialize<UserEntity>(content) ?? throw new ArgumentNullException(nameof(content));
                 var userEntity = new UserEntity
                 {
+                    Id = message.Id,
                     Login = message.Login,
                     Password = message.Password,
                     CreatedOnUtc = message.CreatedOnUtc,
@@ -57,11 +55,11 @@ namespace ExpenseTracker.API.Messaging
                     var dbContext = scope.ServiceProvider.GetRequiredService<ExpenseTrackerDBContext>();
                     using var transaction = dbContext.Database.BeginTransaction();
                     try
-                    {                  
+                    {
                         dbContext.Add(userEntity);
                         dbContext.SaveChanges();
                         transaction.Commit();
-                    }                 
+                    }
                     catch (Exception)
                     {
                         transaction.Rollback();
@@ -70,9 +68,10 @@ namespace ExpenseTracker.API.Messaging
                     }
                 }
 
+#if DEBUG
                 // Обрабатываем полученное сообщение
                 Debug.WriteLine($"Получено сообщение: {content}");
-
+#endif
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
