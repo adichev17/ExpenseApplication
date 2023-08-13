@@ -16,8 +16,7 @@ namespace ExpenseTracker.Application.Cards.Commands.CreateCard
         private readonly IMapper _mapper;
         public CreateCardCommandHandler(IUnitOfWork unitOfWork, 
             IDateTimeProvider dateTimeProvider, 
-            IMapper mapper,
-            IUserProvider userProvider)
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _dateTimeProvider = dateTimeProvider;

@@ -3,7 +3,6 @@ using Authentication.Application.Authentication.Queries.Login;
 using Authentication.Domain.Common.Errors.ControlError;
 using AuthenticationApiService.Messages;
 using AuthenticationApiService.Models.CommunicationModel;
-using AuthenticationApiService.Services;
 using JwtAuthenticationManager;
 using MapsterMapper;
 using MediatR;
@@ -76,13 +75,5 @@ namespace AuthenticationApiService.Controllers
             }
             return Problem();
         }
-
-
-        //[Authorize]
-        //[HttpGet]
-        //public void Test()
-        //{
-        //    var temp = int.MaxValue;
-        //}
     }
 }

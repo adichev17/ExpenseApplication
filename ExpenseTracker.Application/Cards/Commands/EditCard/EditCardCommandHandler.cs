@@ -37,14 +37,15 @@ namespace ExpenseTracker.Application.Cards.Commands.EditCard
                 return Result.Fail(new ColorNotFoundError());
             }
 
-            if ((await _unitOfWork.CardRepository
-                .FindAsync(x => x.UserId == request.UserId && x.Id == request.CardId))
-                .FirstOrDefault() is not CardEntity cardEntity)
+            var cards = (await _unitOfWork.CardRepository.FindAsync(x => x.UserId == request.UserId)).ToList();
+            var cardEntity = cards.FirstOrDefault(x => x.Id == request.CardId);
+            if (cardEntity is null)
             {
                 return Result.Fail(new CardNotFoundError());
             }
 
-            if (cardEntity.CardName == request.CardName)
+            //checking for the existence of a card with a name from request
+            if (cards.Any(x => x.CardName == request.CardName && x.Id != request.CardId))
             {
                 return Result.Fail(new DuplicateCardError());
             }

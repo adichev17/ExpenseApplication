@@ -4,8 +4,6 @@ using Authentication.Application.Common.Interfaces.Services;
 using Authentication.Domain.Common.Errors.ControlError;
 using Authentication.Domain.Entities;
 using FluentResults;
-using JwtAuthenticationManager;
-using JwtAuthenticationManager.Models;
 using MapsterMapper;
 using MediatR;
 
@@ -16,8 +14,9 @@ namespace Authentication.Application.Authentication.Commands.Register
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IMapper _mapper;
+
         public RegisterCommandHandler(
-            IUnitOfWork unitOfWork, 
+            IUnitOfWork unitOfWork,
             IDateTimeProvider dateTimeProvider,
             IMapper mapper)
         {
@@ -27,7 +26,8 @@ namespace Authentication.Application.Authentication.Commands.Register
         }
 
 
-        public async Task<Result<RegisterResultDto>> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        public async Task<Result<RegisterResultDto>> Handle(RegisterCommand request,
+            CancellationToken cancellationToken)
         {
             if ((await _unitOfWork.UserRepository.FindAsync(x => x.Login == request.Login)).Any())
             {

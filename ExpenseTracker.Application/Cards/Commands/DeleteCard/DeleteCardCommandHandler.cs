@@ -29,9 +29,10 @@ namespace ExpenseTracker.Application.Cards.Commands.DeleteCard
             {
                 return Result.Fail(new UserNotFoundError());
             }
+
             if ((await _unitOfWork.CardRepository
                     .FindAsync(x => x.UserId == request.UserId && x.Id == request.CardId))
-                    .FirstOrDefault() is not CardEntity cardEntity)
+                ?.FirstOrDefault() is not CardEntity cardEntity)
             {
                 return Result.Fail(new CardNotFoundError());
             }
