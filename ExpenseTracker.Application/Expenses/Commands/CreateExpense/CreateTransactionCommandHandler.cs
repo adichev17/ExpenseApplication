@@ -31,12 +31,7 @@ namespace ExpenseTracker.Application.Expenses.Commands.CreateExpense
             if ((await _unitOfWork.UserCategoryRepository
                 .FirstOrDefaultAsync(x => x.UserId == card.UserId && x.CategoryId == request.CategoryId)) is null )
             {
-                return Result.Fail(new NotFoundUserCategoryError());
-            }
-
-            if ((await _unitOfWork.CategoryRepository.GetByIdAsync(request.CategoryId)) is not CategoryEntity category)
-            {
-                return Result.Fail(new CategoryNotFoundError());
+                return Result.Fail(new UserCategoryNotFoundError());
             }
 
             var transactionEntity = new TransactionEntity()

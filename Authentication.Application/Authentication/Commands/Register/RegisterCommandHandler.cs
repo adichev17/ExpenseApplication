@@ -31,7 +31,7 @@ namespace Authentication.Application.Authentication.Commands.Register
         {
             if ((await _unitOfWork.UserRepository.FindAsync(x => x.Login == request.Login)).Any())
             {
-                return Result.Fail<RegisterResultDto>(new DublicateLoginError());
+                return Result.Fail<RegisterResultDto>(new DuplicateLoginError());
             }
 
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);

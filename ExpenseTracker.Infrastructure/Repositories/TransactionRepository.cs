@@ -22,6 +22,11 @@ namespace ExpenseTracker.Infrastructure.Repositories
                 var card = _context.Cards.FirstOrDefault(x => x.Id == transactionEntity.CardId);
                 var category = _context.Categories.FirstOrDefault(x => x.Id == transactionEntity.CategoryId);
 
+                if (card is null)
+                    throw new NullReferenceException(nameof(card));
+                if (category is null)
+                    throw new NullReferenceException(nameof(category));
+
                 _context.Transactions.Add(transactionEntity);
                 _context.SaveChanges();
 
@@ -46,7 +51,6 @@ namespace ExpenseTracker.Infrastructure.Repositories
 
         public IQueryable<TransactionEntity> GetAll(Guid userId, int cardId = 0, int rows = 100)
         {
-            var cardIds = _context.Cards.Where(x => x.UserId == userId).Select(x => x.Id);
             var transactions = _context.Transactions
                 .Include(x => x.Card)
                 .Include(x => x.Category)

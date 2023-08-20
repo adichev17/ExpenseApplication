@@ -13,6 +13,6 @@ namespace ExpenseTracker.Application.Common.Interfaces.Repositories
         TEntity GetById(object id);
         void Insert(TEntity entity);
         void Update(TEntity entityToUpdate);
-        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression);
+        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression);
     }
 }

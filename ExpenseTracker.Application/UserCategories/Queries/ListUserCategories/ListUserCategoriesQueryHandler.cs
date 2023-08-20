@@ -34,8 +34,9 @@ namespace ExpenseTracker.Application.UserCategories.Queries.ListUserCategories
             }
 
             var categories = (await _unitOfWork.UserCategoryRepository
-                .FindAsync(x => x.UserId == request.UserId)).Select(x => x.Category);
-            categories = categories.Where(x => x.ActionTypeId == request.ActionTypeId);
+                    .FindAsync(x => x.UserId == request.UserId && x.Category.ActionTypeId == request.ActionTypeId))
+                .Select(x => x.Category)
+                .ToList();
 
             var categoriesDto = _mapper.Map<List<CategoryDto>>(categories);
             return Result.Ok(categoriesDto);

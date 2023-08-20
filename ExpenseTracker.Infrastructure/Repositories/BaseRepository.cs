@@ -68,7 +68,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
             return dbSet.AsEnumerable();
         }
 
-        public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression)
+        public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression)
         {
             return await dbSet.FirstOrDefaultAsync(expression);
         }

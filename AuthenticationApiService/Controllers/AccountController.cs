@@ -45,9 +45,8 @@ namespace AuthenticationApiService.Controllers
                 case InvalidCredentialsError:
                     return Problem(error, HttpStatusCode.Unauthorized);
                 default:
-                    break;
+                    return Problem(); // throw ex
             }
-            return Problem();
         }
 
         [HttpPost]
@@ -68,12 +67,11 @@ namespace AuthenticationApiService.Controllers
 
             switch (error)
             {
-                case DublicateLoginError:
+                case DuplicateLoginError:
                     return Problem(error, System.Net.HttpStatusCode.Conflict);
                 default:
-                    break;
+                    return Problem();
             }
-            return Problem();
         }
     }
 }
