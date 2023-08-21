@@ -1,2 +1,2 @@
 # ExpenseApplication
-![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+![AUR last modified](https://img.shields.io/aur/last-modified/:packageName)
