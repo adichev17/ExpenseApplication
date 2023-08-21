@@ -1,2 +1,3 @@
 # ExpenseApplication
-![AUR last modified](https://img.shields.io/aur/last-modified/:packageName)
+![AppVeyor Build](https://img.shields.io/appveyor/build/:adichev17/:ExpenseApplication)
+
