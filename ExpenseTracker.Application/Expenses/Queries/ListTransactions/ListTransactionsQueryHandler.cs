@@ -1,5 +1,6 @@
 ﻿using ExpenseTracker.Application.Common.Dtos.Cards;
 using ExpenseTracker.Application.Common.Dtos.Expenses;
+using ExpenseTracker.Application.Common.Errors.Controls;
 using ExpenseTracker.Application.Common.Interfaces.Repositories;
 using FluentResults;
 using MapsterMapper;
@@ -23,6 +24,8 @@ namespace ExpenseTracker.Application.Expenses.Queries.ListTransactions
         public async Task<Result<List<CardTransactionsDto>>> Handle(ListTransactionsQuery request, CancellationToken cancellationToken)
         {
             var transactions = _transactionRepository.GetAll(request.UserId, request.CardId, request.Rows).ToList();
+            if (!(transactions?.Any() ?? false)) return Enumerable.Empty<CardTransactionsDto>().ToList();
+
             var transactionsDto = new List<CardTransactionsDto>();
             foreach (var card in transactions.Select(x => x.Card).Distinct())
             {
