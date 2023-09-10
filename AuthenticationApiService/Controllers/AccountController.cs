@@ -3,7 +3,6 @@ using Authentication.Application.Authentication.Queries.Login;
 using Authentication.Domain.Common.Errors.ControlError;
 using AuthenticationApiService.Messages;
 using AuthenticationApiService.Models.CommunicationModel;
-using AuthenticationApiService.Services;
 using JwtAuthenticationManager;
 using MapsterMapper;
 using MediatR;
@@ -46,9 +45,8 @@ namespace AuthenticationApiService.Controllers
                 case InvalidCredentialsError:
                     return Problem(error, HttpStatusCode.Unauthorized);
                 default:
-                    break;
+                    return Problem(); // throw ex
             }
-            return Problem();
         }
 
         [HttpPost]
@@ -69,20 +67,11 @@ namespace AuthenticationApiService.Controllers
 
             switch (error)
             {
-                case DublicateLoginError:
+                case DuplicateLoginError:
                     return Problem(error, System.Net.HttpStatusCode.Conflict);
                 default:
-                    break;
+                    return Problem();
             }
-            return Problem();
         }
-
-
-        //[Authorize]
-        //[HttpGet]
-        //public void Test()
-        //{
-        //    var temp = int.MaxValue;
-        //}
     }
 }

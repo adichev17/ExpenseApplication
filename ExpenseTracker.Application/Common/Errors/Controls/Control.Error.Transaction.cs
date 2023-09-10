@@ -2,9 +2,9 @@
 
 namespace ExpenseTracker.Application.Common.Errors.Controls
 {
-    public sealed class NotFoundUserCategoryError : Error
+    public sealed class UserCategoryNotFoundError : Error
     {
-        public NotFoundUserCategoryError(string message= "The user does not have the specified category") : base(message)
+        public UserCategoryNotFoundError(string message= "The user does not have the specified category") : base(message)
         {
 
         }

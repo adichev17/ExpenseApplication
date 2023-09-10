@@ -36,11 +36,13 @@ namespace ExpenseTracker.Application.UserCategories.Commands.CreateUserCategory
             }
 
             var category = await _unitOfWork.CategoryRepository
-                .FirstOrDefaultAsync(x => x.CategoryName == request.CategoryName && x.ActionTypeId == request.ActionTypeId);
+                .FirstOrDefaultAsync(x =>
+                    x.CategoryName == request.CategoryName && x.ActionTypeId == request.ActionTypeId);
 
             if (category is not null)
             {
-                if ((await _unitOfWork.UserCategoryRepository.FindAsync(x => x.UserId == request.UserId && x.CategoryId == category.Id)).Any())
+                if ((await _unitOfWork.UserCategoryRepository.FindAsync(x =>
+                        x.UserId == request.UserId && x.CategoryId == category.Id)).Any())
                 {
                     return Result.Fail(new DuplicateUserCategoryError());
                 }

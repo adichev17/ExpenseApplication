@@ -21,13 +21,13 @@ namespace Authentication.Application.Authentication.Queries.Login
 
         public async Task<Result<JwtTokenResponse>> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
-            if ((await _unitOfWork.UserRepository.FindAsync(x => x.Login == request.Login))?.FirstOrDefault() is not UserEntity user)
+            if ((await _unitOfWork.UserRepository.FindAsync(x => x.Login == request.Login))
+                ?.FirstOrDefault() is not UserEntity user)
             {
                 return Result.Fail<JwtTokenResponse>(new InvalidCredentialsError());
             }
 
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-             if (!BCrypt.Net.BCrypt.Verify(request.Password, passwordHash))
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
             {
                 return Result.Fail<JwtTokenResponse>(new InvalidCredentialsError());
             }

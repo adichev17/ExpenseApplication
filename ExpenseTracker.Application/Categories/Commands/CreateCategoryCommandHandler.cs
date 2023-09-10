@@ -33,10 +33,10 @@ namespace ExpenseTracker.Application.Categories.Commands
             }
 
             if ((await _unitOfWork.CategoryRepository
-                .FindAsync(x => x.CategoryName == request.CategoryName && request.ActionTypeId == request.ActionTypeId))
+                .FindAsync(x => x.CategoryName == request.CategoryName && x.ActionTypeId == request.ActionTypeId))
                 .Any())
             {
-                return Result.Fail(new ActionTypeNotFoundError());
+                return Result.Fail(new DuplicateCategoryError());
             }
 
             var categoryEntity = new CategoryEntity

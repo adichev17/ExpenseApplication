@@ -82,7 +82,7 @@ namespace ExpenseTracker.API.Controllers
             {
                 CardNotFoundError => Problem(error, HttpStatusCode.NotFound),
                 CategoryNotFoundError => Problem(error, HttpStatusCode.NotFound),
-                NotFoundUserCategoryError => Problem(error, HttpStatusCode.Conflict),
+                UserCategoryNotFoundError => Problem(error, HttpStatusCode.NotFound),
                 NotFoundTransactionError => Problem(error, HttpStatusCode.NotFound),
                 _ => Problem(),
             };
