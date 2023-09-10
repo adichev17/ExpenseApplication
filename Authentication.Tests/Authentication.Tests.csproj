@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExpenseApplication\Authentication.Application\Authentication.Application.csproj" />
-    <ProjectReference Include="..\ExpenseApplication\AuthenticationApiService\AuthenticationApiService.csproj" />
-    <ProjectReference Include="..\ExpenseApplication\MessageBus\MessageBus.csproj" />
+    <ProjectReference Include="..\Authentication.Application\Authentication.Application.csproj" />
+    <ProjectReference Include="..\AuthenticationApiService\AuthenticationApiService.csproj" />
+    <ProjectReference Include="..\MessageBus\MessageBus.csproj" />
   </ItemGroup>
 
 </Project>

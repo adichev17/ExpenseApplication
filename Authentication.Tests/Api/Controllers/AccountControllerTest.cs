@@ -1,9 +1,7 @@
 ﻿using System.Net;
-using System.Runtime.InteropServices.JavaScript;
 using Authentication.Application.Authentication.Commands.Register;
 using Authentication.Application.Authentication.Queries.Login;
 using Authentication.Application.Common.Dtos;
-using Authentication.Application.Common.Mapping;
 using Authentication.Domain.Common.Errors.ControlError;
 using AuthenticationApiService.Controllers;
 using AuthenticationApiService.Mapping.Messages;

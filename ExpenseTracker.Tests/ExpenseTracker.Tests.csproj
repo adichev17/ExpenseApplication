@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExpenseApplication\ExpenseTracker.Application\ExpenseTracker.Application.csproj" />
+    <ProjectReference Include="..\ExpenseTracker.Application\ExpenseTracker.Application.csproj" />
   </ItemGroup>
 
 </Project>
