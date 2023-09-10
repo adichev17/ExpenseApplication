@@ -53,5 +53,5 @@ services:
     image: ${DOCKER_REGISTRY-}fnsapi
     build:
       context: .
-      dockerfile: FNSApi/Dockerfile
+      dockerfile: Microservices/FNS/FNSApi/Dockerfile
 
