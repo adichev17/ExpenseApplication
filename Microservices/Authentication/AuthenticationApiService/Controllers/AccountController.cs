@@ -1,14 +1,13 @@
-﻿using Authentication.Application.Authentication.Commands.Register;
-using Authentication.Application.Authentication.Queries.Login;
-using Authentication.Domain.Common.Errors.ControlError;
-using AuthenticationApiService.Messages;
+﻿using AuthenticationApiService.Messages;
 using AuthenticationApiService.Models.CommunicationModel;
-using JwtAuthenticationManager;
 using MapsterMapper;
 using MediatR;
 using MessageBus.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Authentication.Application.Authentication.Commands.Register;
+using Authentication.Application.Authentication.Queries.Login;
+using Authentication.Domain.Common.Errors.ControlError;
 
 namespace AuthenticationApiService.Controllers
 {
