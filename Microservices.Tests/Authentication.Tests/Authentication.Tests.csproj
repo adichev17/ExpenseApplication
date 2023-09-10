@@ -21,9 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Authentication.Application\Authentication.Application.csproj" />
-    <ProjectReference Include="..\AuthenticationApiService\AuthenticationApiService.csproj" />
-    <ProjectReference Include="..\MessageBus\MessageBus.csproj" />
+    <ProjectReference Include="..\..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
+    <ProjectReference Include="..\..\MessageBus\MessageBus.csproj" />
+    <ProjectReference Include="..\..\Microservices\Authentication\Authentication.Application\Authentication.Application.csproj" />
+    <ProjectReference Include="..\..\Microservices\Authentication\AuthenticationApiService\AuthenticationApiService.csproj" />
   </ItemGroup>
 
 </Project>
