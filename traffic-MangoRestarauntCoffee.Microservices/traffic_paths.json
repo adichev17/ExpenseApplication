@@ -1,0 +1,62 @@
+[
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/blob/master/Mango.Web/Program.cs",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Web/Program.cs at master · adichev1...",
+    "count": 11,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices",
+    "title": "adichev17/MangoRestarauntCoffee.Microservices: Online store on microservice a...",
+    "count": 7,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/blob/master/Mango.Services.ShoppingCardAPI/Program.cs",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Services.ShoppingCardAPI/Program.cs...",
+    "count": 7,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/tree/master/Mango.Web",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Web at master · adichev17/MangoRest...",
+    "count": 6,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/blob/master/Mango.Web/Services/CartService.cs",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Web/Services/CartService.cs at mast...",
+    "count": 4,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/blob/master/Mango.Web/Services/CouponService.cs",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Web/Services/CouponService.cs at ma...",
+    "count": 4,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/tree/master/Mango.Services.ShoppingCardAPI",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Services.ShoppingCardAPI at master ...",
+    "count": 4,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/blob/master/Mango.Web/Services/ProductService.cs",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Web/Services/ProductService.cs at m...",
+    "count": 3,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/tree/master/Mango.Gateway",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Gateway at master · adichev17/Mango...",
+    "count": 3,
+    "uniques": 1
+  },
+  {
+    "path": "/adichev17/MangoRestarauntCoffee.Microservices/tree/master/Mango.Services.OrderAPI",
+    "title": "MangoRestarauntCoffee.Microservices/Mango.Services.OrderAPI at master · adich...",
+    "count": 3,
+    "uniques": 1
+  }
+]

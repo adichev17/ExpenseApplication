@@ -1,0 +1,16 @@
+{
+  "count": 370,
+  "uniques": 6,
+  "views": [
+    {
+      "timestamp": "2023-09-17T00:00:00Z",
+      "count": 154,
+      "uniques": 1
+    },
+    {
+      "timestamp": "2023-09-18T00:00:00Z",
+      "count": 216,
+      "uniques": 5
+    }
+  ]
+}
