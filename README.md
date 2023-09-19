@@ -1,7 +1,9 @@
-![GitHub repo size](https://img.shields.io/github/repo-size/adichev17/ExpenseApplication)
 ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![RabbitMQ](https://img.shields.io/badge/Rabbitmq-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white)
+![views](https://raw.githubusercontent.com/adichev17/traffic-all-repositories/traffic/traffic-ExpenseApplication/views.svg)
+![clones](https://raw.githubusercontent.com/adichev17/traffic-all-repositories/traffic/traffic-ExpenseApplication/clones.svg)
+![GitHub repo size](https://img.shields.io/github/repo-size/adichev17/ExpenseApplication)
 
 # Project Title
 
