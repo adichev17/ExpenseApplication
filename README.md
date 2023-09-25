@@ -20,6 +20,7 @@ API мобильного приложения по учету финансовы
 - .NET 7.
 - ASP.NET Web-Api
 - Microservices
+- Clean Architecture
 - Entity Framework Core
 - MS Sql Server
 - Fluent Validation
