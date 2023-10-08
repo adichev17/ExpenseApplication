@@ -55,7 +55,6 @@ namespace ExpenseTracker.Tests.Api.Controllers
             };
             var createCardRequest = new CreateCardRequest
             {
-                UserId = default,
                 CardName = "CardTest",
                 ColorId = 1
             };
@@ -85,7 +84,6 @@ namespace ExpenseTracker.Tests.Api.Controllers
             };
             var createCardRequest = new CreateCardRequest
             {
-                UserId = default,
                 CardName = "CardTest",
                 ColorId = 1
             };

@@ -1,11 +1,9 @@
 ﻿using ExpenseTracker.API.Common.Mapping;
 using ExpenseTracker.API.Controllers;
-using ExpenseTracker.API.Models.Communications.Expense;
 using ExpenseTracker.API.Models.Communications.UserCategory;
 using ExpenseTracker.Application.Common.Dtos.UserCategories;
 using ExpenseTracker.Application.Common.Errors.Controls;
 using ExpenseTracker.Application.Common.Interfaces.Services;
-using ExpenseTracker.Application.Expenses.Commands.CreateExpense;
 using ExpenseTracker.Application.UserCategories.Commands.CreateUserCategory;
 using FluentResults;
 using Mapster;
@@ -55,7 +53,6 @@ namespace ExpenseTracker.Tests.Api.Controllers
             };
             var createUserCategoryRequest = new CreateUserCategoryRequest
             {
-                UserId = default,
                 CategoryName = string.Empty,
                 ActionTypeId = 1
             };
@@ -85,7 +82,6 @@ namespace ExpenseTracker.Tests.Api.Controllers
             };
             var createUserCategoryRequest = new CreateUserCategoryRequest
             {
-                UserId = default,
                 CategoryName = string.Empty,
                 ActionTypeId = 1
             };
