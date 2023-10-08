@@ -22,18 +22,20 @@ namespace ExpenseTracker.API.Controllers
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUserProvider _userProvider;
+        private Guid UserId { get; init; }
         public CardController(IMapper mapper, IMediator mediator, IUserProvider userProvider)
         {
             _mapper= mapper;
             _mediator= mediator;
             _userProvider = userProvider;
+
+            UserId = _userProvider.GetUserId();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCardRequest request)
         {
-            request.UserId = _userProvider.GetUserId();
-            var command = _mapper.Map<CreateCardCommand>(request);
+            var command = new CreateCardCommand(UserId, request.CardName, request.ColorId);
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsSuccess)
             {
@@ -48,8 +50,7 @@ namespace ExpenseTracker.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Edit([FromBody] EditCardRequest request)
         {
-            request.UserId = _userProvider.GetUserId();
-            var command = _mapper.Map<EditCardCommand>(request);
+            var command = new EditCardCommand(UserId,request.CardId, request.ColorId, request.CardName);
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsSuccess)
             {
@@ -64,8 +65,7 @@ namespace ExpenseTracker.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int CardId)
         {
-            var userId = _userProvider.GetUserId();
-            var command = new DeleteCardCommand(userId, CardId);
+            var command = new DeleteCardCommand(UserId, CardId);
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsSuccess)
             {
@@ -81,9 +81,7 @@ namespace ExpenseTracker.API.Controllers
         [Route("{userId:int}")]
         public async Task<IActionResult> GetCards()
         {
-            var userId = _userProvider.GetUserId();
-
-            var query = new ListCardsQuery(userId);
+            var query = new ListCardsQuery(UserId);
             var queryResult = await _mediator.Send(query);
             if (queryResult.IsSuccess)
             {
@@ -97,9 +95,7 @@ namespace ExpenseTracker.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCard(int cardId)
         {
-            var userId = _userProvider.GetUserId();
-
-            var query = new GetCardQuery(userId, cardId);
+            var query = new GetCardQuery(UserId, cardId);
             var queryResult = await _mediator.Send(query);
             if (queryResult.IsSuccess)
             {

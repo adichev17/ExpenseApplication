@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using ExpenseTracker.API.Models.Communications.UserCategory;
+﻿using ExpenseTracker.API.Models.Communications.UserCategory;
 using ExpenseTracker.Application.Common.Errors.Controls;
 using ExpenseTracker.Application.Common.Interfaces.Services;
 using ExpenseTracker.Application.UserCategories.Commands.CreateUserCategory;
@@ -20,6 +19,7 @@ namespace ExpenseTracker.API.Controllers
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUserProvider _userProvider;
+        private Guid UserId { get; init; }
         public UserCategoryController(
             IMapper mapper,
             IMediator mediator,
@@ -28,13 +28,13 @@ namespace ExpenseTracker.API.Controllers
             _mapper = mapper;
             _mediator = mediator;
             _userProvider = userProvider;
+            UserId = _userProvider.GetUserId();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateUserCategoryRequest request)
         {
-            request.UserId = _userProvider.GetUserId();
-            var command = _mapper.Map<CreateUserCategoryCommand>(request);
+            var command = new CreateUserCategoryCommand(UserId, request.CategoryName, request.ActionTypeId);
             var commandResult = await _mediator.Send(command);
             if (commandResult.IsSuccess)
             {
@@ -49,8 +49,7 @@ namespace ExpenseTracker.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCategories(int actionTypeId)
         {
-            var userId = _userProvider.GetUserId();
-            var query = new ListUserCategoriesQuery(userId, actionTypeId);
+            var query = new ListUserCategoriesQuery(UserId, actionTypeId);
             var queryResult = await _mediator.Send(query);
             if (queryResult.IsSuccess)
             {

@@ -20,6 +20,7 @@ namespace ExpenseTracker.API.Controllers
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUserProvider _userProvider;
+        private Guid UserId { get; init; }
         public ExpenseController(
             IMapper mapper, 
             IMediator mediator,
@@ -28,6 +29,7 @@ namespace ExpenseTracker.API.Controllers
             _mapper = mapper;
             _mediator = mediator;
             _userProvider = userProvider;
+            UserId = _userProvider.GetUserId();
         }
 
         [HttpPost]
@@ -48,8 +50,7 @@ namespace ExpenseTracker.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllTransactions(int cardId = 0, int rows = 100)
         {
-            var userId = _userProvider.GetUserId();
-            var query = new ListTransactionsQuery(userId, rows, cardId);
+            var query = new ListTransactionsQuery(UserId, rows, cardId);
             var queryResult = await _mediator.Send(query);
             if (queryResult.IsSuccess)
             {
