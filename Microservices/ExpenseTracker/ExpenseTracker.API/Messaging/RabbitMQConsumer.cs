@@ -19,7 +19,7 @@ namespace ExpenseTracker.API.Messaging
         {
             var factory = new ConnectionFactory
             {
-                HostName = "rabbitmq",
+                HostName = /*"rabbitmq"*/ "localhost",
                 Port = 5672,
                 UserName = "guest",
                 Password = "guest"
