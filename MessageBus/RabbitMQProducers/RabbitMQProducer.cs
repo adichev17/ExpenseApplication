@@ -15,7 +15,7 @@ namespace MessageBus.RabbitMQProducers
                 HostName = "rabbitmq",
                 Port = 5672,
                 UserName= "guest",
-                Password = "guest"
+                Password = "guest",
             };
             //Create the RabbitMQ connection using connection factory details as i mentioned above
             var connection = factory.CreateConnection();
